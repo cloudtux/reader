@@ -80,15 +80,11 @@ trait Links
             if ($url) {
 
                 if ($url[0] == '/' || $url[0] == '#') {
+                    return $this->page->links->$type->checkSSL[] = $url;
+                }
 
-                    $this->page->links->$type->checkSSL[] = $url;
-
-                } else {
-
-                    if (substr($url, 0, 3) != 'tel') {
-                        $this->page->links->$type->urls[] = $url;
-                    }
-
+                if (substr($url, 0, 3) != 'tel') {
+                    return $this->page->links->$type->urls[] = $url;
                 }
 
             }
@@ -127,13 +123,13 @@ trait Links
     private function checkForSslLinks()
     {
 
-        if ( preg_grep('/https/', $this->page->links->internal->urls) && property_exists($this->page->links->internal, 'checkSSL') ){
+        if (preg_grep('/https/', $this->page->links->internal->urls) && property_exists($this->page->links->internal, 'checkSSL')) {
 
-                foreach ($this->page->links->internal->checkSSL as $url) {
-                    $this->page->links->internal->urls[] = ($this->page->ssl ? 'https://' : 'http://') . $this->page->domain . $url;
-                }
+            foreach ($this->page->links->internal->checkSSL as $url) {
+                $this->page->links->internal->urls[] = ($this->page->ssl ? 'https://' : 'http://') . $this->page->domain . $url;
+            }
 
-                unset($this->page->links->internal->checkSSL);
+            unset($this->page->links->internal->checkSSL);
 
         }
 
