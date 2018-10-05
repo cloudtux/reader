@@ -127,9 +127,7 @@ trait Links
     private function checkForSslLinks()
     {
 
-        if (preg_grep('/https/', $this->page->links->internal->urls)) {
-
-            if (property_exists($this->page->links->internal, 'checkSSL')) {
+        if ( preg_grep('/https/', $this->page->links->internal->urls) && property_exists($this->page->links->internal, 'checkSSL') ){
 
                 foreach ($this->page->links->internal->checkSSL as $url) {
                     $this->page->links->internal->urls[] = ($this->page->ssl ? 'https://' : 'http://') . $this->page->domain . $url;
@@ -137,7 +135,6 @@ trait Links
 
                 unset($this->page->links->internal->checkSSL);
 
-            }
         }
 
     }
