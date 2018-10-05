@@ -17,6 +17,19 @@ trait Scripts
     private function getScripts($type = false)
     {
 
+        $this->getHeadScripts($type);
+
+        if (preg_match('/<body[^>]*>(.*?)<\/body>/', $this->page->contentData, $matches)) {
+
+            if (preg_match('/<script (.*?)<\/script>/', $matches[0], $results)) {
+                return $results[0];
+            }
+        }
+
+    }
+
+    private function getHeadScripts($type){
+
         if ($type == 'head') {
 
             if (preg_match('/<head[^>]*>(.*?)<\/head>/', $this->page->contentData, $matches)) {
@@ -26,13 +39,6 @@ trait Scripts
                 }
             }
 
-        }
-
-        if (preg_match('/<body[^>]*>(.*?)<\/body>/', $this->page->contentData, $matches)) {
-
-            if (preg_match('/<script (.*?)<\/script>/', $matches[0], $results)) {
-                return $results[0];
-            }
         }
 
     }
