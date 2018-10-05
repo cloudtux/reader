@@ -14,22 +14,14 @@ class Reader implements ReaderInterface
     public function scan($file)
     {
 
-        if (filter_var($file, FILTER_VALIDATE_URL)) {
-
-            return $this->scanUrl($file);
-
-        }
+        $url = !preg_match('/http/', $file) ? 'http://' . $file : false;
+        return $this->scanUrl($url);
 
         // Scan file later...
-
 
     }
 
     private function scanUrl($file){
-
-        if(!preg_match('/http/', $file)) {
-            $file = 'http://' . $file;
-        }
 
         $document = new Web\Page();
 
