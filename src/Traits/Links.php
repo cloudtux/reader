@@ -64,7 +64,13 @@ trait Links
     private function extractLink($link, $type)
     {
 
-        // Urls
+        $this->geturls($link, $type);
+        $this->getKeywords($link, $type);
+
+    }
+
+    private function geturls($link, $type){
+
         if (preg_match('/href="(.*?)"/', $link, $result)) {
 
             $url = trim($result[1]);
@@ -86,7 +92,10 @@ trait Links
             }
         }
 
-        // Keywords
+    }
+
+    private function getKeywords($link, $type){
+
         if (preg_match('/\>(.*?)\</', $link, $result)) {
             if ($result[1] != '' && $result[1] != ' ') {
                 $this->page->links->$type->keywords[] = trim($result[1]);
@@ -100,39 +109,45 @@ trait Links
 
         if (property_exists($this->page->links, 'internal')) {
 
-
             if (property_exists($this->page->links->internal, 'urls')) {
 
-                // Check for SSL
-                if (preg_grep('/https/', $this->page->links->internal->urls)) {
-
-                    if (property_exists($this->page->links->internal, 'checkSSL')) {
-
-                        $protocol = ($this->page->ssl) ? 'https://' : 'http://';
-
-                        foreach ($this->page->links->internal->checkSSL as $url) {
-
-                            $this->page->links->internal->urls[] = $protocol . $this->page->domain . $url;
-
-                        }
-
-                        unset($this->page->links->internal->checkSSL);
-
-                    }
-                }
-
-                // Check for sub domains
+                $this->checkForSslLinks();
                 $this->checkForSubDomains();
-
-                // Count internal links
-                $this->page->links->internal->count = 0;
-                if (property_exists($this->page->links, 'internal') && property_exists($this->page->links->internal, 'urls')) {
-                    $this->page->links->internal->count = count($this->page->links->internal->urls);
-                    sort($this->page->links->internal->urls);
-                }
+                $this->countInternalLinks();
 
             }
 
+        }
+
+    }
+
+    private function checkForSslLinks(){
+
+        if (preg_grep('/https/', $this->page->links->internal->urls)) {
+
+            if (property_exists($this->page->links->internal, 'checkSSL')) {
+
+                $protocol = ($this->page->ssl) ? 'https://' : 'http://';
+
+                foreach ($this->page->links->internal->checkSSL as $url) {
+
+                    $this->page->links->internal->urls[] = $protocol . $this->page->domain . $url;
+
+                }
+
+                unset($this->page->links->internal->checkSSL);
+
+            }
+        }
+
+    }
+
+    private function countInternalLinks(){
+
+        $this->page->links->internal->count = 0;
+        if (property_exists($this->page->links, 'internal') && property_exists($this->page->links->internal, 'urls')) {
+            $this->page->links->internal->count = count($this->page->links->internal->urls);
+            sort($this->page->links->internal->urls);
         }
 
     }
@@ -149,11 +164,16 @@ trait Links
 
         }
 
+        $this->sortSubDomains();
+
+    }
+
+    private function sortSubDomains(){
+
         if (property_exists($this->page->links->internal, 'subDomains')) {
             sort($this->page->links->internal->subDomains);
         }
 
     }
-
 
 }
