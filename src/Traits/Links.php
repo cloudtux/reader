@@ -28,7 +28,7 @@ trait Links
     private function checkLinkTypes($links)
     {
 
-        $this->verifyLinks($links, str_replace('http://', '', $this->page->url) );
+        $this->verifyLinks($links, str_replace('http://', '', $this->page->url));
         $this->checkSSL();
 
         if (property_exists($this->page->links, 'external') && property_exists($this->page->links->external, 'urls')) {
@@ -39,7 +39,8 @@ trait Links
 
     }
 
-    private function verifyLinks($links, $url){
+    private function verifyLinks($links, $url)
+    {
 
         foreach ($links as $link) {
 
@@ -69,7 +70,8 @@ trait Links
 
     }
 
-    private function geturls($link, $type){
+    private function geturls($link, $type)
+    {
 
         if (preg_match('/href="(.*?)"/', $link, $result)) {
 
@@ -94,7 +96,8 @@ trait Links
 
     }
 
-    private function getKeywords($link, $type){
+    private function getKeywords($link, $type)
+    {
 
         if (preg_match('/\>(.*?)\</', $link, $result)) {
             if ($result[1] != '' && $result[1] != ' ') {
@@ -121,18 +124,15 @@ trait Links
 
     }
 
-    private function checkForSslLinks(){
+    private function checkForSslLinks()
+    {
 
         if (preg_grep('/https/', $this->page->links->internal->urls)) {
 
             if (property_exists($this->page->links->internal, 'checkSSL')) {
 
-                $protocol = ($this->page->ssl) ? 'https://' : 'http://';
-
                 foreach ($this->page->links->internal->checkSSL as $url) {
-
-                    $this->page->links->internal->urls[] = $protocol . $this->page->domain . $url;
-
+                    $this->page->links->internal->urls[] = ($this->page->ssl ? 'https://' : 'http://') . $this->page->domain . $url;
                 }
 
                 unset($this->page->links->internal->checkSSL);
@@ -142,9 +142,11 @@ trait Links
 
     }
 
-    private function countInternalLinks(){
+    private function countInternalLinks()
+    {
 
         $this->page->links->internal->count = 0;
+
         if (property_exists($this->page->links, 'internal') && property_exists($this->page->links->internal, 'urls')) {
             $this->page->links->internal->count = count($this->page->links->internal->urls);
             sort($this->page->links->internal->urls);
@@ -168,7 +170,8 @@ trait Links
 
     }
 
-    private function sortSubDomains(){
+    private function sortSubDomains()
+    {
 
         if (property_exists($this->page->links->internal, 'subDomains')) {
             sort($this->page->links->internal->subDomains);
