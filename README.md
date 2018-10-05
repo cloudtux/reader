@@ -1,7 +1,7 @@
-[![Maintainability](https://api.codeclimate.com/v1/badges/66ff0afd47b7af77245e/maintainability)](https://codeclimate.com/github/cloudtux/reader/maintainability)
-
 # Reader
 Application to read web pages, documents and more..
+
+[![Maintainability](https://api.codeclimate.com/v1/badges/66ff0afd47b7af77245e/maintainability)](https://codeclimate.com/github/cloudtux/reader/maintainability)
 
 # Analyse a web page
 ```
