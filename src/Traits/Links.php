@@ -75,19 +75,24 @@ trait Links
 
         if (preg_match('/href="(.*?)"/', $link, $result)) {
 
-            $url = trim($result[1]);
-
-            if ($url) {
+            if ($url = trim($result[1])) {
 
                 if ($url[0] == '/' || $url[0] == '#') {
-                    return $this->page->links->$type->checkSSL[] = $url;
-                }
 
-                if (substr($url, 0, 3) != 'tel') {
-                    return $this->page->links->$type->urls[] = $url;
+                    $this->page->links->$type->checkSSL[] = $url;
+
+                } else {
+
+                    if (substr($url, 0, 3) != 'tel') {
+
+                        $this->page->links->$type->urls[] = $url;
+
+                    }
+
                 }
 
             }
+
         }
 
     }
