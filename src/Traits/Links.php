@@ -28,7 +28,18 @@ trait Links
     private function checkLinkTypes($links)
     {
 
-        $url = str_replace('http://', '', $this->page->url);
+        $this->verifyLinks($links, str_replace('http://', '', $this->page->url) );
+        $this->checkSSL();
+
+        if (property_exists($this->page->links, 'external') && property_exists($this->page->links->external, 'urls')) {
+            $this->page->links->external->count = count($this->page->links->external->urls);
+        }
+
+        return true;
+
+    }
+
+    private function verifyLinks($links, $url){
 
         foreach ($links as $link) {
 
@@ -47,15 +58,6 @@ trait Links
             }
 
         }
-
-        $this->checkSSL();
-
-        if (property_exists($this->page->links, 'external') && property_exists($this->page->links->external, 'urls')) {
-            $this->page->links->external->count = count($this->page->links->external->urls);
-        }
-
-
-        return true;
 
     }
 
