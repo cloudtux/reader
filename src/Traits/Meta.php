@@ -3,34 +3,43 @@
 trait Meta
 {
 
+    private $meta = [];
+
     protected function filterMeta($data)
     {
-
-        $meta = [];
 
         foreach ($data as $item) {
 
             $content = '';
 
-            if (preg_match('/content="(.*?)"/', $item, $contentResult)) {
-                $content = $contentResult[1];
+            if (preg_match('/content="(.*?)"/', $item, $result)) {
+                $content = $result[1];
             }
 
-            if (preg_match('/name="(.*?)"/', $item, $nameResult)) {
-                $meta[$nameResult[1]] = $content;
-            }
-
-            if (preg_match('/property="(.*?)"/', $item, $propertyResult)) {
-                $meta[$propertyResult[1]] = $content;
-            }
+            $this->metaName($item, $content);
+            $this->metaProperty($item, $content);
 
         }
 
-        ksort($meta);
-
-        return $meta;
+        return ksort($this->meta);
 
     }
 
+    private function metaName($item, $content)
+    {
+
+        if (preg_match('/name="(.*?)"/', $item, $result)) {
+            $this->meta[$result[1]] = $content;
+        }
+
+    }
+
+    private function metaProperty($item, $content){
+
+        if (preg_match('/property="(.*?)"/', $item, $result)) {
+            $this->meta[$result[1]] = $content;
+        }
+
+    }
 
 }
