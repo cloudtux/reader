@@ -17,6 +17,7 @@ class Scan
     public function __construct()
     {
         $this->client = new Client();
+        $this->carbon = new Carbon();
     }
 
     public function fetch($url)
@@ -24,7 +25,7 @@ class Scan
 
         $this->data            = new \stdClass();
         $this->data->url       = $url;
-        $this->data->startTime = Carbon::now();
+        $this->data->startTime = $this->carbon->now();
 
         return $this;
 
@@ -69,10 +70,10 @@ class Scan
 
         return Cache::remember($this->data->url, $this->cacheTime, function () use ($response, $request_type) {
 
-            $this->data->endTime     = Carbon::now();
+            $this->data->endTime     = $this->carbon->now();
             $this->data->requestType = $request_type;
             $this->data->status      = $response->getStatusCode();
-            $this->data->createdAt   = Carbon::now();
+            $this->data->createdAt   = $this->carbon->now();
             $this->data->contentType = $response->getHeaderLine('content-type');
             $this->data->contentData = $response->getBody()->getContents();
 
