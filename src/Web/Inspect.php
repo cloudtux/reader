@@ -3,7 +3,7 @@
 use Cloudtux\Reader\Contracts\Inspector;
 
 use Cloudtux\Reader\Traits\{
-    Clean, Meta, Head, Scripts, Social, Body, Links
+    Clean, Head, Scripts, Social, Body, Links
 };
 
 class Inspect extends Inspector
