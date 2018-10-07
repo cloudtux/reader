@@ -22,13 +22,7 @@ class Inspect extends Inspector
     public function all()
     {
 
-        $this->head()->body()->scripts()->social()->links()
-             ->exclude(
-                 [
-                     'contentData',
-                     'contentBody'
-                 ]
-             );
+        $this->head()->body()->scripts()->social()->links();
 
         return $this->page;
     }
