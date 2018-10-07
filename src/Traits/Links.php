@@ -86,13 +86,11 @@ trait Links
 
                     $this->page->links->$type->checkSSL[] = $url;
 
-                } else {
+                }
 
-                    if (substr($url, 0, 3) != 'tel') {
+                if (substr($url, 0, 3) != 'tel') {
 
-                        $this->page->links->$type->urls[] = $url;
-
-                    }
+                    $this->page->links->$type->urls[] = $url;
 
                 }
 
