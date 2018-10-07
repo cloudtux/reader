@@ -53,15 +53,15 @@ trait Links
 
                 if (preg_match('/"(.*?)' . addcslashes($url, '/') . '(.*?)"(.*?)>/', $link, $result)) {
                     $this->extractLink($link, 'internal');
-                } else {
-                    $this->extractLink($link, 'external');
+                    continue;
                 }
 
-            } else {
-
-                $this->extractLink($link, 'internal');
+                $this->extractLink($link, 'external');
+                continue;
 
             }
+
+            $this->extractLink($link, 'internal');
 
         }
 
