@@ -1,6 +1,6 @@
 <?php namespace Cloudtux\Reader\Traits;
 
-trait Meta
+class Meta
 {
 
     private $meta = [];
