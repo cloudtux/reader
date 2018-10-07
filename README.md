@@ -1,7 +1,7 @@
 # Reader
 Application to read web pages, documents and more..
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/spatie/laravel-backup/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/spatie/laravel-backup/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/cloudtux/reader/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/cloudtux/reader/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/cloudtux/reader/badges/build.png?b=master)](https://scrutinizer-ci.com/g/cloudtux/reader/build-status/master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/66ff0afd47b7af77245e/maintainability)](https://codeclimate.com/github/cloudtux/reader/maintainability)
 
