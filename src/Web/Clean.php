@@ -1,9 +1,9 @@
-<?php namespace Cloudtux\Reader\Traits;
+<?php namespace Cloudtux\Reader\Web;
 
-trait Clean
+class Clean
 {
 
-    public function clean($data)
+    public function code($data)
     {
 
         $data = preg_replace('/class="(.*?)"/i', "", $data);

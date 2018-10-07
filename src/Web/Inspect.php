@@ -16,6 +16,7 @@ class Inspect extends Inspector
     public function __construct($page)
     {
         $this->page = $page;
+
         $this->findRootUrl();
     }
 

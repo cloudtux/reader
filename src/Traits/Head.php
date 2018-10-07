@@ -1,9 +1,9 @@
 <?php namespace Cloudtux\Reader\Traits;
 
+use Cloudtux\Reader\Web\Meta;
+
 trait Head
 {
-
-    use Meta;
 
     public function head()
     {
@@ -58,7 +58,9 @@ trait Head
 
         if (preg_match_all('/<meta (.*?)>/i', $this->page->contentData, $results)) {
 
-            return $this->filterMeta($results[0]);
+            $meta = new Meta();
+
+            return $meta->filter($results[0]);
 
         }
 

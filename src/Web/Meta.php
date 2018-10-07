@@ -1,23 +1,27 @@
-<?php namespace Cloudtux\Reader\Traits;
+<?php namespace Cloudtux\Reader\Web;
 
 class Meta
 {
 
     private $meta = [];
 
-    protected function filterMeta($data)
+    public function filter($data)
     {
 
-        foreach ($data as $item) {
+        if($data && is_array($data)) {
 
-            $content = '';
+            foreach ($data as $item) {
 
-            if (preg_match('/content="(.*?)"/', $item, $result)) {
-                $content = $result[1];
+                $content = '';
+
+                if (preg_match('/content="(.*?)"/', $item, $result)) {
+                    $content = $result[1];
+                }
+
+                $this->metaName($item, $content);
+                $this->metaProperty($item, $content);
+
             }
-
-            $this->metaName($item, $content);
-            $this->metaProperty($item, $content);
 
         }
 

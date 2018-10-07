@@ -1,9 +1,9 @@
 <?php namespace Cloudtux\Reader\Traits;
 
+use Cloudtux\Reader\Web\Meta;
+
 trait Social
 {
-
-    use Meta;
 
     public function social()
     {
@@ -21,7 +21,9 @@ trait Social
 
         if (preg_match_all('/<meta name="twitter:(.*?)>/', $this->page->contentData, $results)) {
 
-            return $this->filterMeta($results[0]);
+            $meta = new Meta();
+
+            return $meta->filter($results[0]);
 
         }
 
@@ -32,7 +34,9 @@ trait Social
 
         if (preg_match_all('/<meta property="og:(.*?)>/', $this->page->contentData, $results)) {
 
-            return $this->filterMeta($results[0]);
+            $meta = new Meta();
+
+            return $meta->filter($results[0]);
 
         }
 

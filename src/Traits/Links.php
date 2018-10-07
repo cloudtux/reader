@@ -1,9 +1,9 @@
 <?php namespace Cloudtux\Reader\Traits;
 
+use Cloudtux\Reader\Web\Clean;
+
 trait Links
 {
-
-    use Clean;
 
     public function links()
     {
@@ -20,7 +20,10 @@ trait Links
         if (preg_match('/<body[^>]*>(.*?)<\/body>/', $this->page->contentData, $results)) {
 
             if (preg_match_all('/<a [^>]*>(.*?)<\/a>/', $results[0], $results)) {
-                return $this->checkLinkTypes($this->clean($results[0]));
+
+                $clean = new Clean();
+
+                return $this->checkLinkTypes($clean->code($results[0]));
             }
 
         }

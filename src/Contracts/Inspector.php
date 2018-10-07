@@ -1,17 +1,11 @@
 <?php namespace Cloudtux\Reader\Contracts;
 
-class Inspector implements InspectInterface
+abstract class Inspector implements InspectInterface
 {
 
     protected $page;
 
-    public function all()
-    {
-
-        $this->head()->body();
-
-        return $this;
-    }
+    abstract function all();
 
     public function get()
     {
