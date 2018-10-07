@@ -3,6 +3,8 @@
 trait Social
 {
 
+    use Meta;
+
     public function social()
     {
 
