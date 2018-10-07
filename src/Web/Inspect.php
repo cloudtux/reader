@@ -9,7 +9,7 @@ use Cloudtux\Reader\Traits\{
 class Inspect extends Inspector
 {
 
-    use Clean, Meta, Head, Scripts, Social, Body, Links;
+    use Clean, Head, Scripts, Social, Body, Links;
 
     protected $page;
 
