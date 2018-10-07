@@ -3,6 +3,8 @@
 trait Links
 {
 
+    use Clean;
+
     public function links()
     {
 

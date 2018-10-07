@@ -3,13 +3,13 @@
 use Cloudtux\Reader\Contracts\Inspector;
 
 use Cloudtux\Reader\Traits\{
-    Clean, Head, Scripts, Social, Body, Links
+    Head, Scripts, Social, Body, Links
 };
 
 class Inspect extends Inspector
 {
 
-    use Clean, Head, Scripts, Social, Body, Links;
+    use Head, Scripts, Social, Body, Links;
 
     protected $page;
 
