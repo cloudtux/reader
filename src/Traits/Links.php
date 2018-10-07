@@ -162,7 +162,7 @@ trait Links
 
         foreach ($this->page->links->internal->urls as $key => $val) {
 
-            if (preg_match('/\/\/(.*?).' . addcslashes($this->page->domain, '/') . '/', $val, $result)) {
+            if (preg_match('/\/\/(.*?).' . addcslashes($this->page->domain, '/') . '/', $val)) {
                 $this->page->links->internal->subDomains[] = $val;
                 unset($this->page->links->internal->urls->$key);
             }

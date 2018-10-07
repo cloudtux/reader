@@ -38,10 +38,7 @@ class Inspect extends Inspector
         $this->page->domain = $domain[0];
 
         // Check if url is using SSL
-        $this->page->ssl = false;
-        if (preg_match('/https/', $this->page->url, $result)) {
-            $this->page->ssl = true;
-        }
+        $this->page->ssl = (preg_match('/https/', $this->page->url)) ? true : false;
 
     }
 
