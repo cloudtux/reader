@@ -5,7 +5,7 @@ Application to read web pages, documents and more..
 [![Build Status](https://scrutinizer-ci.com/g/cloudtux/reader/badges/build.png?b=master)](https://scrutinizer-ci.com/g/cloudtux/reader/build-status/master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/66ff0afd47b7af77245e/maintainability)](https://codeclimate.com/github/cloudtux/reader/maintainability)
 
-## Analyse a web page using Laravel
+## Analyse a web page using Laravel framework
 
 ```php
 <?php 
@@ -42,5 +42,5 @@ require __DIR__ . '/vendor/autoload.php';
 $scan = new Cloudtux\Reader\Reader();
 
 header('Content-Type: application/json');
-echo $scan->scan('github.com');
+echo json_encode($scan->scan('github.com'));
 ```
