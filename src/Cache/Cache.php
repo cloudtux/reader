@@ -20,7 +20,7 @@ class Cache{
 
     public function put($file, $data, $time){
 
-        return $this->cache->put($file, $data, $time);
+        $this->cache->put($file, $data, $time);
 
     }
 
