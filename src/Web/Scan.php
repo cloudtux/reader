@@ -13,6 +13,8 @@ class Scan
     protected $client;
     protected $url;
     protected $cacheTime = 300;
+    protected $carbon;
+    protected $cache;
 
     public function __construct()
     {
