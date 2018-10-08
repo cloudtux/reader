@@ -1,6 +1,6 @@
 <?php namespace Cloudtux\Reader\Web;
 
-use Cache;
+use Cloudtux\Reader\Cache\Cache;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
@@ -18,6 +18,7 @@ class Scan
     {
         $this->client = new Client();
         $this->carbon = new Carbon();
+        $this->cache = new Cache();
     }
 
     public function fetch($url)
@@ -34,22 +35,22 @@ class Scan
     public function basic()
     {
 
-        if (!Cache::has($this->data->url)) {
+        if (!$this->cache->has($this->data->url)) {
 
             $response = $this->client->request('GET', $this->data->url);
 
-            response()->json($this->setResponse($response, 'basic'), 200);
+            return $this->setResponse($response, 'basic');
 
         }
 
-        return $this->getCache(Cache::get($this->data->url));
+        return $this->getCache($this->cache->get($this->data->url));
 
     }
 
     public function async()
     {
 
-        if (!Cache::has($this->data->url)) {
+        if (!$this->cache->has($this->data->url)) {
 
             $request = new Request('GET', $this->data->url);
 
@@ -57,17 +58,29 @@ class Scan
                 return $res;
             });
 
-            response()->json($this->setResponse($response->wait(), 'async'), 200);
+            return $this->setResponse($response->wait(), 'async');
 
         }
 
-        return $this->getCache(Cache::get($this->data->url));
+        return $this->getCache($this->cache->get($this->data->url));
 
     }
 
     private function setResponse($response, $request_type)
     {
 
+        $this->data->endTime     = $this->carbon->now();
+        $this->data->requestType = $request_type;
+        $this->data->status      = $response->getStatusCode();
+        $this->data->createdAt   = $this->carbon->now();
+        $this->data->contentType = $response->getHeaderLine('content-type');
+        $this->data->contentData = $response->getBody()->getContents();
+
+        $this->cache->put($this->data->url, $this->data, $this->cacheTime);
+
+        return $this->data;
+
+        /*
         return Cache::remember($this->data->url, $this->cacheTime, function () use ($response, $request_type) {
 
             $this->data->endTime     = $this->carbon->now();
@@ -80,6 +93,7 @@ class Scan
             return $this->data;
 
         });
+        */
 
     }
 

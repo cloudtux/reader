@@ -25,7 +25,7 @@ class Reader implements ReaderInterface
 
         $document = new Web\Page();
 
-        return $document->scan($file);
+        return json_encode($document->scan($file));
 
     }
 
