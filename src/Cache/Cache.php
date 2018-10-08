@@ -2,6 +2,8 @@
 
 class Cache{
 
+    protected $cache;
+
     public function __construct(){
 
 
